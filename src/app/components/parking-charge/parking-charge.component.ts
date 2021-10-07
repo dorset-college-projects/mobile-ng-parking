@@ -28,22 +28,40 @@ export class ParkingChargeComponent implements OnInit {
 
     }
 
-    
+
     if (this.selectedRegistration?.length == 0) {
       return;
     }
 
-    if ( this.listOfCharges.filter(charge => charge.registration == this.selectedRegistration).length > 0 ) {
+    if (this.listOfCharges.filter(charge => charge.registration == this.selectedRegistration).length > 0) {
 
       return;
     }
 
+    const currentCharge = this.CalculateParkingCharge(this.selectedHours)
+    this.runningTotal += currentCharge;
+    let newCar = {
+      registration: this.selectedRegistration,
+      hoursParked: this.selectedHours,
+      parkingCharge: currentCharge,
+      runningTotal: this.runningTotal
+    };
 
-
-    let newCar = { registration: this.selectedRegistration, hoursParked: this.selectedHours };
     this.listOfCharges.push(newCar);
-    this.runningTotal += this.minimumCharge;
+
   }
+
+  CalculateParkingCharge(hours: number): number {
+
+    let partialCharge = .5;
+    if (hours <= 3) return  this.minimumCharge;
+
+    let totalCharge =  ((hours-3) * partialCharge) + this.minimumCharge ;
+
+    return totalCharge <= 10 ? totalCharge : 10;
+
+  }
+
 
   ResetButton(): void {
 
