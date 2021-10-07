@@ -1,0 +1,26 @@
+<h1>Parking Charge Calculator</h1>
+<p>{{selectedRegistration}}</p>
+<p><input type="text" [(ngModel)]="selectedRegistration" /></p>
+<p>{{runningTotal}}</p>
+
+<button (click)="CalculateCharge()">Calculate Charge</button>
+
+<table class="table" border="1">
+    <thead>
+        <tr>
+            <th>Registration</th>
+            <th>Hours</th>
+            <th>Charge</th>
+            <th>Running Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let charge of listOfCharges">
+            <td>{{charge.registration}}</td>
+            <td>?</td>
+            <td>{{charge.hoursParked}}</td>
+            <td>?</td>
+        </tr>
+    </tbody>
+
+</table>
