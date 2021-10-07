@@ -8,24 +8,49 @@ import { ParkedCar } from 'src/app/models/parked-car';
 })
 export class ParkingChargeComponent implements OnInit {
 
-  runningTotal = 0;  
+  runningTotal = 0;
   minimumCharge = 2;
 
   listOfCharges: ParkedCar[] = [];
 
   selectedRegistration: string = 'abcd';
+  selectedHours: number = 0;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  CalculateCharge() : void {
+  CalculateCharge(): void {
+
+    if (isNaN(this.selectedHours) || this.selectedHours <= 0) {
+      return;
+
+    }
+
+    
+    if (this.selectedRegistration?.length == 0) {
+      return;
+    }
+
+    if ( this.listOfCharges.filter(charge => charge.registration == this.selectedRegistration).length > 0 ) {
+
+      return;
+    }
 
 
-    let newCar = {registration: this.selectedRegistration, hoursParked: 5};
+
+    let newCar = { registration: this.selectedRegistration, hoursParked: this.selectedHours };
     this.listOfCharges.push(newCar);
-    this.runningTotal+= this.minimumCharge;
+    this.runningTotal += this.minimumCharge;
+  }
+
+  ResetButton(): void {
+
+    this.runningTotal = 0;
+    this.listOfCharges = [];
+    this.selectedRegistration = '';
+
   }
 
 }

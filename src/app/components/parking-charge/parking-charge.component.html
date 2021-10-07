@@ -1,9 +1,13 @@
 <h1>Parking Charge Calculator</h1>
 <p>{{selectedRegistration}}</p>
 <p><input type="text" [(ngModel)]="selectedRegistration" /></p>
+<p><input type="text" [(ngModel)]="selectedHours" /></p>
+
+
 <p>{{runningTotal}}</p>
 
 <button (click)="CalculateCharge()">Calculate Charge</button>
+<button (click)="ResetButton()">Reset Charges</button>
 
 <table class="table" border="1">
     <thead>
